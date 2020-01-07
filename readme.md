@@ -18,12 +18,16 @@ Suppose we number each piece adjacent to P<sub>0</sub> in an increasing fashion,
 
 Finally, after P<sub>0</sub> moves, the piece E is placed in its prior position.
 
-# Game Design
+## Game Design
 
 This game can be thought of as breaking down following the MVC structure. The main algorithms can be thought of as the Model, and the code manipulates the DOM as the Controller. Finally, the html page and the styles involved can be considered the View.
 
 I use these names loosely, the essential idea is to break up our code into just enough abstractions to organize our code; but not so many as to create confusion.
 
-# Play around!
+## Play around!
 
-Have fun! Follow me on Twitter at <a href="https://twitter.com/babakness">Babakness</a>.
+Have fun!
+
+https://number-slider.algogames.dev
+
+Follow me on Twitter at <a href="https://twitter.com/babakness">Babakness</a>.
