@@ -35,6 +35,7 @@ export class GameDom {
       let [ row, col ] = map.get( index + 1 )
       let position = `${ row }-${ col }`
       el.dataset.position = position
+      el.tabIndex = (row * this.col) + col
     }
   }
   

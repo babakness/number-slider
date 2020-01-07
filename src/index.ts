@@ -34,7 +34,7 @@ document?.addEventListener('DOMContentLoaded', async () => {
    */
 
   // shuffle board
-  let shuffleHandler = throttleAsyncCalls( async function( event ) {
+  let shuffleHandler = throttleAsyncCalls( async function( event: Event ) {
     let moves = scrambleMatrix( game.getCurrentState(), 6 )
     await game.animateMoves( moves, .1 )
     shuffles++
@@ -42,7 +42,7 @@ document?.addEventListener('DOMContentLoaded', async () => {
 
   //
   // reset logic
-  let resetHandler = throttleAsyncCalls( async function(event) {
+  let resetHandler = throttleAsyncCalls( async function( event: Event ) {
     let moves = game.getMoveHistory().reverse()
     let reverseGame = moves.slice( 1, )
     let speed = reverseGame.length > 12 
@@ -57,7 +57,7 @@ document?.addEventListener('DOMContentLoaded', async () => {
 
   //
   // handle game play
-  let gamePlayHandler = async function( event ) {
+  let gamePlayHandler = async function( event: Event ) {
     if( !game.isValidPiece( event.target as Element ) ){
       return
     }
@@ -78,5 +78,11 @@ document?.addEventListener('DOMContentLoaded', async () => {
   shuffleButton.addEventListener( 'click', shuffleHandler )
   resetButton.addEventListener( 'click', resetHandler )
   board.addEventListener( 'click', gamePlayHandler )
+  board.addEventListener( 'keypress', function( event ) {
+    let mouseClick = new MouseEvent('click', {bubbles: true})
+    if( event.key.toLowerCase() === 'enter' ) {
+      event.target.dispatchEvent(mouseClick)
+    }
+  } )
 
 })
