@@ -69,6 +69,17 @@ document?.addEventListener('DOMContentLoaded', async () => {
       shuffles = 0
     }
   }
+  
+  /**
+   * When enter is pressed on an element, dispatch a click event on that element
+   * @param event Keyboard Event
+   */
+  let routeEnterToClick = function( event: KeyboardEvent ) {
+    let mouseClick = new MouseEvent( 'click', { bubbles: true } )
+    if( event.key.toLowerCase() === 'enter' ) {
+      event.target.dispatchEvent( mouseClick )
+    }
+  }
 
   /*
    * 
@@ -78,11 +89,6 @@ document?.addEventListener('DOMContentLoaded', async () => {
   shuffleButton.addEventListener( 'click', shuffleHandler )
   resetButton.addEventListener( 'click', resetHandler )
   board.addEventListener( 'click', gamePlayHandler )
-  board.addEventListener( 'keypress', function( event ) {
-    let mouseClick = new MouseEvent('click', {bubbles: true})
-    if( event.key.toLowerCase() === 'enter' ) {
-      event.target.dispatchEvent(mouseClick)
-    }
-  } )
-
+  board.addEventListener( 'keypress', routeEnterToClick )
+  
 })

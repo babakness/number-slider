@@ -10,7 +10,7 @@ Flying as a kid, I remember getting these free square puzzles with a 4x4 grid of
 
 The objective of the game was to have someone scramble the board for you then solve it so that the numbers appeared sequentially, with the empty piece on the lower right side.
 
-## Algorthm
+## Algorithm
 
 Making this game presents a number of neat challenges. The key algorithm to making this work is, given a matrix of numbers with size N*M, and empty piece, E; move each piece from a select piece P<sub>0</sub> toward E.
 

@@ -40,7 +40,10 @@ body, html {
     border-right: .2rem solid color.scale($color: $button-color, $lightness: -20%);
     border-top: .2rem solid color.scale($color: $button-color, $lightness: +20%);
     border-left: .2rem solid color.scale($color: $button-color, $lightness: +20%);
-
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
     & span {
       display: inline-block;
       font-size: 1rem;
@@ -64,6 +67,7 @@ body, html {
 
 @include styleButton( '.shuffle', rgb(184, 169, 146));
 @include styleButton( '.reset', rgb(175, 184, 146));
+@include styleButton( '.github', rgb(159, 146, 184));
 
 .actions {
   text-align: center;
