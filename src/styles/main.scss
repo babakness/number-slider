@@ -1,0 +1,77 @@
+@use './board';
+@use './animation';
+@use 'sass:color';
+.win {
+  text-align: center;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  animation-duration: 1.4s;
+  transition: all 1s;
+  font-size: 1.5rem;
+}
+.invisible {
+  opacity: 0;
+}
+.title {
+  font-size: 1.8rem;
+  text-align: center;
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+  display: block;
+}
+* {
+  box-sizing: border-box;
+  font-family: 'Press Start 2P', cursive;
+}
+body, html {
+  font-size: 20px;
+  font-family: helvetica, arial, san-serif;
+  background-image: url(/images/ep_naturalwhite.png);
+}
+
+@mixin styleButton( $button-selector, $button-color ) {
+  #{ $button-selector } {
+    width: 12rem;
+    height: 3rem;
+    background-color: $button-color;
+    color: white;
+    letter-spacing: .01rem;
+    border-bottom: .2rem solid color.scale($color: $button-color, $lightness: -20%);
+    border-right: .2rem solid color.scale($color: $button-color, $lightness: -20%);
+    border-top: .2rem solid color.scale($color: $button-color, $lightness: +20%);
+    border-left: .2rem solid color.scale($color: $button-color, $lightness: +20%);
+
+    & span {
+      display: inline-block;
+      font-size: 1rem;
+    }
+  }
+  
+  #{ $button-selector }:active {
+    border-top: .2rem solid color.scale($color: $button-color, $lightness: -20%);
+    border-left: .2rem solid color.scale($color: $button-color, $lightness: -20%);
+    border-bottom: .2rem solid color.scale($color: $button-color, $lightness: +20%);
+    border-right: .2rem solid color.scale($color: $button-color, $lightness: +20%);
+  }
+  
+  #{ $button-selector }:active span {
+    display: inline-block;
+    font-size: 1rem;
+    padding-top: .1rem;
+  }
+}
+
+
+@include styleButton( '.shuffle', rgb(184, 169, 146));
+@include styleButton( '.reset', rgb(175, 184, 146));
+
+.actions {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  button {
+    margin-bottom: 1rem;
+  }
+}

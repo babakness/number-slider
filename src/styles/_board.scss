@@ -1,0 +1,88 @@
+@use 'sass:color';
+
+$square-size: 4rem;
+$square-padding: 1.1rem;
+$square-count: 3;
+$board-base-size: $square-count * ( $square-size + $square-padding ) + $square-padding;
+
+// $color: color.scale(#d2e1dd, $lightness: -10%, $saturation: 10%);
+$board-color: rgb(51, 179, 253);
+$board-color-darker: color.scale( $board-color ,$lightness: -20%);
+$board-color-lighter: color.scale( $board-color ,$lightness: +40%);
+
+.board-container {
+  border-top: .2rem solid $board-color-lighter;
+  border-left: .2rem solid $board-color-lighter;
+  border-bottom: .2rem solid $board-color-darker;
+  border-right: .2rem solid $board-color-darker;
+  width: calc(#{ $board-base-size } + 2.3rem);
+  height: calc(#{ $board-base-size } + 2.3rem);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $board-color;
+  margin: auto;
+}
+.board {
+  background: $board-color;
+  width: calc(#{ $board-base-size } + .3rem);
+  height: calc(#{ $board-base-size } + .3rem);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-top: .1rem solid $board-color-darker;
+  border-left: .1rem solid $board-color-darker;
+  border-bottom: .1rem solid $board-color-lighter;
+  border-right: .1rem solid $board-color-lighter;
+  // outline: 1rem solid $board-color;
+  margin: auto;
+}
+
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: block;
+  flex-direction: column;
+  position: relative;
+  background: $board-color;
+  border: .07rem solid $board-color;
+  width: $board-base-size;
+  height: $board-base-size;
+}
+
+
+li {
+  position: absolute;
+  display: block;
+  text-align: center;
+  width: $square-size;
+  height: $square-size;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: .7rem;
+  color: #555;
+}
+
+li.empty {
+  border: 0px !important;
+}
+
+li.occupied {
+  background-color: rgb(245, 245, 245);
+  border-right: .2rem solid rgb(231, 230, 230);
+  border-bottom: .2rem solid rgb(231, 230, 230);
+  border-left: .2rem solid rgb(255, 255, 255);
+  border-top: .2rem solid rgb(255, 255, 255);
+}
+
+@for $row from 0 through $square-count {
+  @for $col from 0 through $square-count {
+    li[data-position="#{ $row }-#{ $col }"] {
+      top: #{ ( $square-count + $square-padding ) * $row };
+      left: #{ ( $square-count + $square-padding ) * $col };
+    } 
+  }
+}
