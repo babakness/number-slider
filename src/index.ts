@@ -25,7 +25,7 @@ document?.addEventListener('DOMContentLoaded', async () => {
    *
    */
 
-  let game = new GameDom( board, squares, 4, 4 )
+  let game = new GameDom( squares, 4, 4 )
 
   /*
    *

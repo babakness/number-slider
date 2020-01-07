@@ -1,27 +1,22 @@
 
-import { getPosMap, Matrix, Coordinate, scrambleMatrix, isSolved, moveFromTo, slideFromToEmptyImmutable, newBoard } from './game-algo'
+import { getPosMap, Matrix, Coordinate, isSolved, slideFromToEmptyImmutable, newBoard, getEmptySquareCoord } from './game-algo'
 import { arrayToAsyncStream, enumerate, promiseTimeout, last } from './helpers'
 
 export class GameDom {
-  private readonly container: HTMLElement 
   private readonly squares: NodeListOf<HTMLElement>
   private readonly squareSet: Set<HTMLElement>
-  private moves: Matrix[]
-  private active: boolean
-  private readonly blankSquareClass: string
+  private moves: Matrix[] = []
+  private newBoard: Matrix
   private defaultSecondsPerMove: number
   private readonly row: number
   private readonly col: number
-  private squaresPriorTime: number
-  constructor( container, squares, row, col, defaultSecondsPerMove = .25 , blankSquare = 'empty') {
-    this.container = container
+  constructor( squares, row, col, defaultSecondsPerMove = .25 ) {
     this.squares = squares
     this.squareSet = new Set(squares)
-    this.active = true
-    this.blankSquareClass = blankSquare
     this.defaultSecondsPerMove = defaultSecondsPerMove
     this.row = row
     this.col = col
+    this.newBoard = newBoard( this.row, this.col )
     this.reset()
     return this
   }
@@ -31,11 +26,17 @@ export class GameDom {
    * @param map mapping between piece and position
    */
   private setClasses( map: Map<number,Coordinate> ) {
+    let [ emptyRow, emptyCol ] = getEmptySquareCoord( this.getCurrentState() )
     for( let [ index, el ] of enumerate( this.squares ) ) {
       let [ row, col ] = map.get( index + 1 )
       let position = `${ row }-${ col }`
+      let notEmptySquare = index + 1 !== this.row * this.col
+      let isMovable = row === emptyRow || col === emptyCol
+
       el.dataset.position = position
-      el.tabIndex = (row * this.col) + col
+      el.tabIndex = ( notEmptySquare && isMovable )
+        ? (row * this.col) + col
+        : -1
     }
   }
   
@@ -45,8 +46,8 @@ export class GameDom {
    */
   private nextBoardState( matrix: Matrix ) {
     let map = getPosMap( matrix )
-    this.setClasses( map )
     this.moves.push( matrix )
+    this.setClasses( map )
   }
 
   /**
@@ -77,7 +78,7 @@ export class GameDom {
    * Reset game, reset board and moves stack
    */
   reset() {
-    let matrix = newBoard( this.row, this.col )
+    let matrix = this.newBoard
     let map = getPosMap( matrix )
     this.setClasses( map )
     this.moves = [ matrix ]
@@ -87,7 +88,9 @@ export class GameDom {
    * Last recorded move on move stack
    */
   getCurrentState() {
-    return last(this.moves)
+    return this.moves.length 
+      ? last(this.moves) 
+      : this.newBoard
   }
 
   /**
