@@ -1,7 +1,7 @@
 
 import { scrambleMatrix, newBoard  } from './lib/game-algo'
 import { GameDom } from './lib/game-dom'
-import { promiseTimeout, last, throttleAsyncCalls } from './lib/helpers'
+import { promiseTimeout, last, throttleAsyncCalls, routeEnterToClick } from './lib/helpers'
 import { inOutAnimate, randomInOutAnimate } from './lib/animate'
 
 
@@ -67,17 +67,6 @@ document?.addEventListener('DOMContentLoaded', async () => {
       randomInOutAnimate( winEl )
       game.reset()
       shuffles = 0
-    }
-  }
-  
-  /**
-   * When enter is pressed on an element, dispatch a click event on that element
-   * @param event Keyboard Event
-   */
-  let routeEnterToClick = function( event: KeyboardEvent ) {
-    let mouseClick = new MouseEvent( 'click', { bubbles: true } )
-    if( event.key.toLowerCase() === 'enter' ) {
-      event.target.dispatchEvent( mouseClick )
     }
   }
 

@@ -38,3 +38,15 @@ export function throttleAsyncCalls<A,B>(
 }
 
 export const last = <A>( arr: A[]) => arr[ arr.length - 1 ] 
+
+
+  /**
+   * When enter is pressed on an element, dispatch a click event on that element
+   * @param event Keyboard Event
+   */
+  export function routeEnterToClick( event: KeyboardEvent ) {
+    let mouseClick = new MouseEvent( 'click', { bubbles: true } )
+    if( event.key.toLowerCase() === 'enter' ) {
+      event.target.dispatchEvent( mouseClick )
+    }
+  }
